@@ -149,22 +149,28 @@ También en el laboratorio cuatro se denota la diferencia en cuanto al desempeñ
 
    En el inciso A, lo primero que se hizo fue una modificación en los códigos respectivos a este apartado, básicamente antes se tenían unos threads constantes #define NUM_THREADS 8, lo que se hizo fue una modificación utilizando malloc para los arreglos fijos que se encontraban en el documento, esto se hizo con la idea de facilitar al momento de cambiar los threads con los cuales va a correr el programa sin la necesidad de cambiar el código de manera repetitiva al momento que se quiera utilizar otra cantidad de hilos.
 
+![Tiempo - Ejercicio A](../img/grafico_tiempo.png)
+![Speedup - Ejercicio A](../img/grafico_speedup.png)
+![Eficiencia - Ejercicio A](../img/grafico_eficiencia.png)
+
    Escalabilidad del programa: a medida que los threads van aumentando en el programa el tiempo también aumenta, esto nos indica que a pesar de que se utilicen más hilos para paralelizar el proceso este no está funcionando, es puede ser debido a que no hay condición de carrera ni sincronización entre ellos, todos los cores comparten el mismo bus de memoria y el mismo ancho de banda hacia la RAM, por lo cual entre más hilos haya esto hace que haya un tráfico mayor al cual darle respuestas, ya que cada uno de estos hilos compiten por un espacio en la RAM.
 
    Si lo analizamos con la ley de Amdahl observamos que a pesar de que el código intenta paralelizar el programa, este no aprovecha los hilos disponibles del CPU de manera adecuada, lo cual genera un comportamiento serial en los hilos, haciendo que a medida que estos aumenten más interrupción de comunicación entre los datos habrá, volviéndolo más lento.
 
    En cuanto a ambos programas, la eficiencia es pésima, esto lo podemos ver con los speedup/N, como se ven en las tablas, el N aumenta más rápido que el speedup, haciendo que la eficiencia disminuya a medida que se aumentan los hilos, generando en sí una contradicción en cuanto a los esperados al momento de usar más hilos. El affinity tiene una mejor eficiencia, esto puede ser debido a que el hilo se queda en el mismo core todo el tiempo haciendo que no tenga que buscar las task en otro proceso o hilo.
 
-3. **Práctica 3 — Ejercicio B**
+4. **Práctica 3 — Ejercicio B**
 
    Primero se debe tomar en cuenta una pequeña modificación para que me corriera el código, tuve que disminuir la cantidad de repeticiones de 10 mil a 50 repeticiones, ya que la computadora no me daba ningún resultado, esto es importante recalcar porque los resultados sw mult y softmax contemplan esta restricción para hacerlo justo.
-
+![Tiempo - Ejercicio B](../img/grafico_tiempo_b.png)
+![Speedup - Ejercicio B](../img/grafico_speedup_b.png)
+![Eficiencia - Ejercicio B](../img/grafico_eficiencia_b.png)
 
     En cuanto a la escalabilidad del programa, a medida que aumentan la cantidad de hilos los tiempos de matmul mejora y en cambio los tiempos de softmax empeora, esto puede es debido a que el costo de la creación del hilo en el softmax lo perjudica más haya de ayudarlo, ya que tiene tres regiones paralelas, lo hilos no llegan a aportar mucho, pero si se deben gastar procesos al momento de crear el hilo y sincronizarlo, en cambio matmul sí utiliza los hilos de mejor manera con una sola región paralela que de verdad aprovecha los hilos, ya que estos tienen un mayor trabajo que hacer.
 
     En cuanto a la eficiencia de ambos programas, notamos que el matmul tiene una eficiencia mayor que el de softmax debido a la mejor utilización de hilos, pero también vemos que a medida que aumentamos los hilos tanto el matmul y el softmax van disminuyendo, esto debido a que hay un punto óptimo de la cantidad de hilos que son necesarios al momento de correr un programa, aumentar la cantidad de hilos a partir de ahí hace que la carga de trabajo de cada hilo sea menos significativa y que el costo de creación del hilo no valga la pena pero que ralentiza el proceso.
 
-4. **Práctica 4 — Ejercicio A y B**
+6. **Práctica 4 — Ejercicio A y B**
 
 Dynamic es más lento porque se compila con -fPIC lo cual hace que el compilador tenga un menor capacidad para optimizar entre el archivo binario y la biblioteca que se desea llamar. Static, en cambio, se enlaza directo en el binario.
 
