@@ -1,4 +1,4 @@
-# Práctica de Clase #3 y #4 — Datos y plantilla de informe
+# Práctica de Clase #3 y #4
 
 ## Ronald Duarte Barrantes : 2021004089 | Computación Heterogénea
 
